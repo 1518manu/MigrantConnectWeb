@@ -20,7 +20,7 @@ const languages = [
   { value: 'Other', label: 'Other' },
 ];
 
-const languageAlphabets = ['अ', 'আ', 'అ', 'அ', 'اردو', 'ക', 'क', 'ਮ', 'ಕ', 'ଅ', 'গ', 'ত', 'প', 'മ', 'हिंदी', 'বাংলা', 'తెలుగు', 'मराठी', 'தமிழ்', 'اردو', 'ગુજરાતી', 'ಕನ್ನಡ', 'ଓଡ଼ିଆ', 'ਪੰਜਾਬੀ', 'മലയാളം', 'অসমীয়া'];
+const languageAlphabets = ['अ', 'आ', 'అ', 'அ', 'اردو', 'ക', 'क', 'ਮ', 'ಕ', 'ଅ', 'গ', 'ত', 'প', 'മ', 'हिंदी', 'বাংলা', 'తెలుగు', 'मराठी', 'தமிழ்', 'اردو', 'ગુજરાતી', 'ಕನ್ನಡ', 'ଓଡ଼ିଆ', 'ਪੰਜਾਬੀ', 'മലയാളം', 'অসমীয়া'];
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -33,16 +33,13 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
-=======
   const [passwordStrength, setPasswordStrength] = useState('');
   const [passwordError, setPasswordError] = useState('');
->>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
   const navigate = useNavigate();
 
   // Password strength checker
-  function checkPasswordStrength(pw) {
+  function checkPasswordStrengthLocal(pw) {
     let strength = '';
     let error = '';
     const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
@@ -67,7 +64,7 @@ export default function Register() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (e.target.name === 'password') {
-      checkPasswordStrength(e.target.value);
+      checkPasswordStrengthLocal(e.target.value);
     }
   };
 
@@ -112,14 +109,13 @@ export default function Register() {
       setIsLoading(false);
       return;
     }
-<<<<<<< HEAD
 
-=======
-    if (checkPasswordStrength(form.password) !== 'strong') {
+    if (checkPasswordStrengthLocal(form.password) !== 'strong') {
       setMessage('Please enter a stronger password.');
+      setIsLoading(false);
       return;
     }
->>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
+
     try {
       // Hash the password before sending
       const hashedPassword = hashPassword(form.password);
@@ -217,11 +213,8 @@ export default function Register() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-<<<<<<< HEAD
             <PasswordStrengthIndicator password={form.password} />
-=======
             {passwordError && <div style={{ color: 'red', fontSize: '0.95rem', marginTop: '0.25rem' }}>{passwordError}</div>}
->>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
           </label>
           
           <label className="password-label">
@@ -252,15 +245,7 @@ export default function Register() {
             {isLoading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
-        
-        {message && (
-          <p className="message" style={{ 
-            color: message.includes('successful') ? '#00C851' : '#ff4444' 
-          }}>
-            {message}
-          </p>
-        )}
-        
+        {message && <p style={{ color: message.includes('successful') ? 'green' : 'red' }}>{message}</p>}
         <p>Already have an account? <a href="/login">Login here</a></p>
       </div>
     </div>
