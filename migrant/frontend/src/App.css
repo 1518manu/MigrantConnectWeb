@@ -140,8 +140,8 @@
 .auth-bg-letters span {
   position: absolute;
   font-size: 2.5rem;
-  color: #e3e3e3;
-  opacity: 0.13;
+  color: #b0b0b0;
+  opacity: 0.28;
   font-weight: bold;
   user-select: none;
   pointer-events: none;
