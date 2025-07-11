@@ -40,3 +40,114 @@
 .read-the-docs {
   color: #888;
 }
+
+.auth-container {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.auth-container::before {
+  content: 'अ আ అ அ اردو ക क ਮ ಕ ଅ গ ত প മ हिंदी বাংলা తెలుగు मराठी தமிழ் اردو ગુજરાતી ಕನ್ನಡ ଓଡ଼ିଆ ਪੰਜਾਬੀ മലയാളം অসমীয়া';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 2.5rem;
+  color: #e3e3e3;
+  opacity: 0.18;
+  white-space: pre-wrap;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 2.5rem;
+  letter-spacing: 0.2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.auth-container > * {
+  position: relative;
+  z-index: 1;
+}
+.auth-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.auth-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.auth-form button:hover {
+  background: #0056b3;
+}
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.auth-container p {
+  text-align: center;
+  margin-top: 1rem;
+}
+.password-label {
+  position: relative;
+}
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.password-input-wrapper input {
+  flex: 1;
+}
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1.2rem;
+  padding: 0 0.25rem;
+}
+.eye-icon:hover {
+  color: #007bff;
+}
+.banner, .banner-char { display: none !important; }
+.auth-bg-letters {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.auth-bg-letters span {
+  position: absolute;
+  font-size: 2.5rem;
+  color: #e3e3e3;
+  opacity: 0.13;
+  font-weight: bold;
+  user-select: none;
+  pointer-events: none;
+  animation: float-letters 18s linear infinite;
+}
+@keyframes float-letters {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  100% { transform: translateY(-60vh) scale(1.2) rotate(360deg); }
+}
