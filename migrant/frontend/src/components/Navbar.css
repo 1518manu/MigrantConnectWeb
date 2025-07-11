@@ -2,16 +2,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: #18181b;
   padding: 1rem 2rem;
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  border-bottom: 1px solid #27272a;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.24);
 }
 
 .navbar-logo {
   font-size: 1.7rem;
   font-weight: bold;
-  color: #222;
+  color: #f4f4f5;
   letter-spacing: 0.03em;
 }
 
@@ -23,10 +23,10 @@
 .navbar-search input {
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #27272a;
   border-radius: 0.5rem;
-  background: #f9f9f9;
-  color: #333;
+  background: #232326;
+  color: #f4f4f5;
   font-size: 1rem;
 }
 
@@ -37,16 +37,17 @@
 }
 
 .navbar-icon-btn {
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background: #232326;
+  border: 1px solid #27272a;
   border-radius: 0.5rem;
   padding: 0.5rem 0.8rem;
-  color: #555;
+  color: #d4d4d8;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .navbar-icon-btn:hover {
-  background: #e5e7eb;
+  background: #27272a;
+  color: #fff;
 } 

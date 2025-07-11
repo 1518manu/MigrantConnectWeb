@@ -6,21 +6,22 @@
 }
 
 .qr-btn {
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background: #232326;
+  border: 1px solid #27272a;
   border-radius: 0.8rem;
   padding: 1rem 2rem;
-  color: #333;
+  color: #f4f4f5;
   font-size: 1.1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
   cursor: pointer;
   margin-top: 1.5rem;
   transition: background 0.2s;
 }
 
 .qr-btn:hover {
-  background: #e5e7eb;
+  background: #27272a;
+  color: #fff;
 }
 
 .qr-preview {

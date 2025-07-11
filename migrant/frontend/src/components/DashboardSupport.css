@@ -1,23 +1,23 @@
 .support-section {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: #232326;
+  border: 1px solid #27272a;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
   padding: 1.5rem 1.2rem;
   margin-bottom: 2rem;
-  color: #222;
+  color: #f4f4f5;
 }
 
 .support-title {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.7rem;
-  color: #333;
+  color: #f4f4f5;
 }
 
 .support-content {
   font-size: 1rem;
-  color: #555;
+  color: #d4d4d8;
 }
 
 .support-link {
