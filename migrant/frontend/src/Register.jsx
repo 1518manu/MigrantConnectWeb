@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { hashPassword, checkPasswordStrength } from './utils/password';
+import PasswordStrengthIndicator from './components/PasswordStrengthIndicator';
 
 const languages = [
   { value: 'Hindi', label: 'हिंदी' },
@@ -18,7 +20,7 @@ const languages = [
   { value: 'Other', label: 'Other' },
 ];
 
-const languageAlphabets = ['अ', 'আ', 'అ', 'அ', 'اردو', 'ക', 'क', 'ਮ', 'ಕ', 'ଅ', 'গ', 'ত', 'प', 'മ', 'हिंदी', 'বাংলা', 'తెలుగు', 'मराठी', 'தமிழ்', 'اردو', 'ગુજરાતી', 'ಕನ್ನಡ', 'ଓଡ଼ିଆ', 'ਪੰਜਾਬੀ', 'മലയാളം', 'অসমীয়া'];
+const languageAlphabets = ['अ', 'আ', 'అ', 'அ', 'اردو', 'ക', 'क', 'ਮ', 'ಕ', 'ଅ', 'গ', 'ত', 'প', 'മ', 'हिंदी', 'বাংলা', 'తెలుగు', 'मराठी', 'தமிழ்', 'اردو', 'ગુજરાતી', 'ಕನ್ನಡ', 'ଓଡ଼ିଆ', 'ਪੰਜਾਬੀ', 'മലയാളം', 'অসমীয়া'];
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -26,42 +28,97 @@ export default function Register() {
     identifier: '',
     password: '',
     confirmPassword: '',
-    otp: '',
     language: languages[0].value,
   });
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    // Check if all fields are filled
+    if (!form.name.trim() || !form.identifier.trim() || !form.password || !form.confirmPassword) {
+      setMessage('Please fill in all fields.');
+      return false;
+    }
+
+    // Check password strength
+    const strength = checkPasswordStrength(form.password);
+    if (strength.score < 3) {
+      setMessage('Please choose a stronger password. Your password should be at least moderate strength.');
+      return false;
+    }
+
+    // Check if passwords match
+    if (form.password !== form.confirmPassword) {
+      setMessage('Passwords do not match.');
+      return false;
+    }
+
+    // Validate email/phone format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10,15}$/;
+    
+    if (!emailRegex.test(form.identifier) && !phoneRegex.test(form.identifier)) {
+      setMessage('Please enter a valid email address or phone number.');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
-    if (form.password !== form.confirmPassword) {
-      setMessage('Passwords do not match.');
+    setIsLoading(true);
+
+    if (!validateForm()) {
+      setIsLoading(false);
       return;
     }
+
     try {
-      const res = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage('Registration successful! Redirecting to login...');
-        setTimeout(() => navigate('/login'), 1500);
-      } else if (res.status === 409) {
+      // Hash the password before sending
+      const hashedPassword = hashPassword(form.password);
+      
+      // Prepare registration data
+      const registrationData = {
+        name: form.name.trim(),
+        identifier: form.identifier.trim(),
+        password: hashedPassword, // Send hashed password
+        language: form.language,
+        registrationDate: new Date().toISOString(),
+      };
+
+      // For demo purposes, simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Store user data locally (in real app, this would go to backend)
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const existingUser = users.find(user => user.identifier === form.identifier);
+      
+      if (existingUser) {
         setMessage('User already exists. Please login.');
-      } else {
-        setMessage(data.error || 'Registration failed.');
+        setIsLoading(false);
+        return;
       }
+
+      // Add new user
+      users.push(registrationData);
+      localStorage.setItem('users', JSON.stringify(users));
+
+      setMessage('Registration successful! Redirecting to login...');
+      setTimeout(() => navigate('/login'), 2000);
+      
     } catch (err) {
-      setMessage('Server error.');
+      setMessage('Registration failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,6 +133,7 @@ export default function Register() {
     };
     return <span key={i} style={style}>{char}</span>;
   });
+
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
       <div className="auth-bg-letters">{bgLetters}</div>
@@ -83,13 +141,29 @@ export default function Register() {
         <h2>Register</h2>
         <form onSubmit={handleSubmit} className="auth-form">
           <label>
-            Name:
-            <input type="text" name="name" value={form.name} onChange={handleChange} required />
+            Full Name:
+            <input 
+              type="text" 
+              name="name" 
+              value={form.name} 
+              onChange={handleChange} 
+              required 
+              placeholder="Enter your full name"
+            />
           </label>
+          
           <label>
-            Phone/Email:
-            <input type="text" name="identifier" value={form.identifier} onChange={handleChange} required />
+            Email/Phone:
+            <input 
+              type="text" 
+              name="identifier" 
+              value={form.identifier} 
+              onChange={handleChange} 
+              required 
+              placeholder="Enter email or phone number"
+            />
           </label>
+          
           <label className="password-label">
             Password:
             <div className="password-input-wrapper">
@@ -99,12 +173,15 @@ export default function Register() {
                 value={form.password}
                 onChange={handleChange}
                 required
+                placeholder="Create a strong password"
               />
               <span className="eye-icon" onClick={() => setShowPassword(s => !s)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+            <PasswordStrengthIndicator password={form.password} />
           </label>
+          
           <label className="password-label">
             Confirm Password:
             <div className="password-input-wrapper">
@@ -114,21 +191,34 @@ export default function Register() {
                 value={form.confirmPassword}
                 onChange={handleChange}
                 required
+                placeholder="Confirm your password"
               />
               <span className="eye-icon" onClick={() => setShowConfirmPassword(s => !s)}>
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
           </label>
+          
           <label>
-            Language:
+            Preferred Language:
             <select name="language" value={form.language} onChange={handleChange}>
               {languages.map(lang => <option key={lang.value} value={lang.value}>{lang.label}</option>)}
             </select>
           </label>
-          <button type="submit">Register</button>
+          
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Creating Account...' : 'Register'}
+          </button>
         </form>
-        {message && <p>{message}</p>}
+        
+        {message && (
+          <p className="message" style={{ 
+            color: message.includes('successful') ? '#00C851' : '#ff4444' 
+          }}>
+            {message}
+          </p>
+        )}
+        
         <p>Already have an account? <a href="/login">Login here</a></p>
       </div>
     </div>

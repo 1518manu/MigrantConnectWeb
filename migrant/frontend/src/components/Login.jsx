@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { saveToken } from '../utils/auth';
+import { saveToken, hashPassword } from '../utils/auth';
 import './Login.css';
 
 const languages = [
@@ -43,21 +43,41 @@ export default function Login() {
     setIsLoading(true);
     
     try {
-      // For demo purposes, accept any login with valid format
-      if (form.identifier && form.password) {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Create a mock token
-        const mockToken = 'mock_jwt_token_' + Date.now();
+      // Get stored users
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      // Hash the entered password
+      const hashedPassword = hashPassword(form.password);
+      
+      // Find user by identifier and check password
+      const user = users.find(u => 
+        u.identifier === form.identifier && u.password === hashedPassword
+      );
+      
+      if (user) {
+        // Create a mock token with user info
+        const mockToken = 'mock_jwt_token_' + Date.now() + '_' + user.identifier;
         saveToken(mockToken);
+        
+        // Store user info in session
+        sessionStorage.setItem('currentUser', JSON.stringify({
+          name: user.name,
+          identifier: user.identifier,
+          language: user.language
+        }));
         
         setMessage('Login successful! Redirecting...');
         setTimeout(() => {
           navigate('/dashboard');
         }, 1500);
       } else {
-        setMessage('Please fill in all fields.');
+        // Check if user exists but password is wrong
+        const userExists = users.find(u => u.identifier === form.identifier);
+        if (userExists) {
+          setMessage('Invalid password. Please try again.');
+        } else {
+          setMessage('User not found. Please register first.');
+        }
       }
     } catch (err) {
       setMessage('Login failed. Please try again.');
@@ -85,14 +105,14 @@ export default function Login() {
         <h2>Login</h2>
         <form onSubmit={handleSubmit} className="auth-form">
           <label>
-            Phone/Email:
+            Email/Phone:
             <input 
               type="text" 
               name="identifier" 
               value={form.identifier} 
               onChange={handleChange} 
               required 
-              placeholder="Enter phone or email"
+              placeholder="Enter your email or phone"
             />
           </label>
           <label className="password-label">
@@ -104,7 +124,7 @@ export default function Login() {
                 value={form.password}
                 onChange={handleChange}
                 required
-                placeholder="Enter password"
+                placeholder="Enter your password"
               />
               <span className="eye-icon" onClick={() => setShowPassword(s => !s)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -121,7 +141,13 @@ export default function Login() {
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        {message && <p className="message">{message}</p>}
+        {message && (
+          <p className="message" style={{ 
+            color: message.includes('successful') ? '#00C851' : '#ff4444' 
+          }}>
+            {message}
+          </p>
+        )}
         <p>New user? <a href="/register">Register here</a></p>
       </div>
     </div>
