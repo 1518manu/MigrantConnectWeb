@@ -1,3 +1,5 @@
+import './DashboardAnnouncements.css';
+
 export default function DashboardAnnouncements() {
   // Replace with dynamic data as needed
   const announcements = [

@@ -1,3 +1,4 @@
+import './Navbar.css';
 import { ThemeToggle } from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
 

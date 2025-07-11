@@ -1,3 +1,4 @@
+import './CategoryCard.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CategoryCard({ name, icon, path }) {

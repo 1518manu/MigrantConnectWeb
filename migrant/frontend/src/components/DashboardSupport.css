@@ -1,0 +1,26 @@
+.support-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.support-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  color: #333;
+}
+
+.support-content {
+  font-size: 1rem;
+  color: #555;
+}
+
+.support-link {
+  text-decoration: underline;
+  color: #fffbe9;
+} 

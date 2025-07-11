@@ -1,3 +1,4 @@
+import './DashboardQuickLinks.css';
 import CategoryCard from './CategoryCard';
 
 export default function DashboardQuickLinks() {

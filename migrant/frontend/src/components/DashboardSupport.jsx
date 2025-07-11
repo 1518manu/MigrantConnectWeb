@@ -1,3 +1,5 @@
+import './DashboardSupport.css';
+
 export default function DashboardSupport() {
   return (
     <div className="support-section">

@@ -4,6 +4,7 @@ import IssuedDocumentsButton from '../components/IssuedDocumentsButton';
 import DashboardQuickLinks from '../components/DashboardQuickLinks';
 import DashboardAnnouncements from '../components/DashboardAnnouncements';
 import DashboardSupport from '../components/DashboardSupport';
+import FadeInSection from '../components/FadeInSection';
 
 export default function Dashboard() {
   return (
@@ -11,10 +12,18 @@ export default function Dashboard() {
       <Navbar />
       <main className="main-content">
         <DashboardHero />
-        <IssuedDocumentsButton />
-        <DashboardQuickLinks />
-        <DashboardAnnouncements />
-        <DashboardSupport />
+        <FadeInSection>
+          <IssuedDocumentsButton />
+        </FadeInSection>
+        <FadeInSection>
+          <DashboardQuickLinks />
+        </FadeInSection>
+        <FadeInSection>
+          <DashboardAnnouncements />
+        </FadeInSection>
+        <FadeInSection>
+          <DashboardSupport />
+        </FadeInSection>
       </main>
     </div>
   );

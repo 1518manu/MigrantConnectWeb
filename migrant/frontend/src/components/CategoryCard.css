@@ -1,0 +1,24 @@
+.category-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+  color: #222;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: box-shadow 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  background: #f3f4f6;
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.08);
+}
+
+.category-card-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+  color: #888;
+} 

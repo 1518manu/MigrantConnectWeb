@@ -1,0 +1,68 @@
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #e0f2fe 0%, #fff 100%);
+  padding: 2.5rem 2rem;
+  border-radius: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-full {
+  min-height: 100vh;
+}
+
+.hero-section::after {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: url('https://undraw.co/api/illustrations/undraw_traveling_yhxq.svg') no-repeat right center/contain;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 900px) {
+  .hero-section {
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-section > div {
+    z-index: 2;
+    max-width: 50%;
+  }
+  .hero-section::after {
+    display: block;
+  }
+}
+
+.dark .hero-section {
+  background: linear-gradient(90deg, #c7d2fe 0%, #f0fdfa 100%);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #2874f0;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px #e0f2fe;
+}
+
+.hero-description {
+  font-size: 1.3rem;
+  color: #334155;
+  max-width: 36rem;
+  margin: 0 auto;
+  font-weight: 500;
+} 
