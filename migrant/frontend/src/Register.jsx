@@ -47,7 +47,7 @@ export default function Register() {
       return false;
     }
 
-    // Check password strength
+    // Check password strength using shared utility
     const strength = checkPasswordStrength(form.password);
     if (strength.score < 3) {
       setMessage('Please choose a stronger password. Your password should be at least moderate strength.');
