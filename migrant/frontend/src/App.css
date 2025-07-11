@@ -41,13 +41,27 @@
   color: #888;
 }
 
+/* Dashboard Layout */
+.main-container {
+  min-height: 100vh;
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Auth Styles */
 .auth-container {
   position: relative;
   z-index: 1;
   overflow: hidden;
 }
 .auth-container::before {
-  content: 'अ আ అ அ اردو ക क ਮ ಕ ଅ গ ত প മ हिंदी বাংলা తెలుగు मराठी தமிழ் اردو ગુજરાતી ಕನ್ನಡ ଓଡ଼ିଆ ਪੰਜਾਬੀ മലയാളം অসমীয়া';
+  content: 'अ आ అ అ اردو ക क ਮ ಕ ଅ গ ত প മ हिंदी বাংলা తెలుగు मराठी தமிழ் اردو ગુજરાતી ಕನ್ನಡ ଓଡ଼ିଆ ਪੰਜਾਬੀ മലയാളം অসমীয়া';
   position: absolute;
   top: 0;
   left: 0;

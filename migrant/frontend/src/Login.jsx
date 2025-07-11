@@ -47,6 +47,9 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         setMessage('Login successful!');
+        // Save token to localStorage
+        localStorage.setItem('jwt_token', 'mock_token_' + Date.now());
+        navigate('/dashboard');
         // Redirect or do something after login
       } else if (res.status === 401) {
         setMessage('Invalid credentials.');

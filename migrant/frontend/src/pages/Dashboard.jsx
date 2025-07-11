@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
-import Navbar from '../components/Navbar';
-import DashboardHero from '../components/DashboardHero';
-import IssuedDocumentsButton from '../components/IssuedDocumentsButton';
-import DashboardQuickLinks from '../components/DashboardQuickLinks';
-import DashboardAnnouncements from '../components/DashboardAnnouncements';
-import DashboardSupport from '../components/DashboardSupport';
-import FadeInSection from '../components/FadeInSection';
+import { 
+  Navbar, 
+  DashboardHero, 
+  IssuedDocumentsButton, 
+  DashboardQuickLinks, 
+  DashboardAnnouncements, 
+  DashboardSupport, 
+  FadeInSection 
+} from '../components/DashboardComponents';
 
-export default function Dashboard() {
+function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,4 +43,6 @@ export default function Dashboard() {
       </main>
     </div>
   );
-} 
+}
+
+export default Dashboard;
