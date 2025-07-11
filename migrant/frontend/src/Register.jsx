@@ -33,11 +33,42 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
+=======
+  const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+>>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
   const navigate = useNavigate();
+
+  // Password strength checker
+  function checkPasswordStrength(pw) {
+    let strength = '';
+    let error = '';
+    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    if (!pw) {
+      strength = '';
+      error = '';
+    } else if (pw.length < 8) {
+      strength = 'weak';
+      error = 'Password must be at least 8 characters.';
+    } else if (!strongRegex.test(pw)) {
+      strength = 'weak';
+      error = 'Password must include uppercase, lowercase, number, and special character.';
+    } else {
+      strength = 'strong';
+      error = '';
+    }
+    setPasswordStrength(strength);
+    setPasswordError(error);
+    return strength;
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.name === 'password') {
+      checkPasswordStrength(e.target.value);
+    }
   };
 
   const validateForm = () => {
@@ -81,7 +112,14 @@ export default function Register() {
       setIsLoading(false);
       return;
     }
+<<<<<<< HEAD
 
+=======
+    if (checkPasswordStrength(form.password) !== 'strong') {
+      setMessage('Please enter a stronger password.');
+      return;
+    }
+>>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
     try {
       // Hash the password before sending
       const hashedPassword = hashPassword(form.password);
@@ -179,7 +217,11 @@ export default function Register() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+<<<<<<< HEAD
             <PasswordStrengthIndicator password={form.password} />
+=======
+            {passwordError && <div style={{ color: 'red', fontSize: '0.95rem', marginTop: '0.25rem' }}>{passwordError}</div>}
+>>>>>>> 9e79e74b3e6a611fc7d440b27268826097329872
           </label>
           
           <label className="password-label">
