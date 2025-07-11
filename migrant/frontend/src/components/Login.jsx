@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { saveToken, hashPassword } from '../utils/auth';
+import { setToken, login } from '../utils/auth';
 import './Login.css';
 
 const languages = [
@@ -43,44 +43,15 @@ export default function Login() {
     setIsLoading(true);
     
     try {
-      // Get stored users
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      // Use the login function from auth.js
+      const result = await login(form.identifier, form.password);
       
-      // Hash the entered password
-      const hashedPassword = hashPassword(form.password);
-      
-      // Find user by identifier and check password
-      const user = users.find(u => 
-        u.identifier === form.identifier && u.password === hashedPassword
-      );
-      
-      if (user) {
-        // Create a mock token with user info
-        const mockToken = 'mock_jwt_token_' + Date.now() + '_' + user.identifier;
-        saveToken(mockToken);
-        
-        // Store user info in session
-        sessionStorage.setItem('currentUser', JSON.stringify({
-          name: user.name,
-          identifier: user.identifier,
-          language: user.language
-        }));
-        
-        setMessage('Login successful! Redirecting...');
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1500);
-      } else {
-        // Check if user exists but password is wrong
-        const userExists = users.find(u => u.identifier === form.identifier);
-        if (userExists) {
-          setMessage('Invalid password. Please try again.');
-        } else {
-          setMessage('User not found. Please register first.');
-        }
-      }
+      setMessage('Login successful! Redirecting...');
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
     } catch (err) {
-      setMessage('Login failed. Please try again.');
+      setMessage(err.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

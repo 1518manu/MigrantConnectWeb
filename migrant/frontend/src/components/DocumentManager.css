@@ -1,0 +1,495 @@
+/* Document Manager Container */
+.document-manager {
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.document-manager-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.document-manager-header h2 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.document-manager-header p {
+  color: #cccccc;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Upload Modal */
+.upload-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.upload-modal {
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.3s ease;
+}
+
+.upload-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+}
+
+.upload-modal-header h3 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.upload-modal-header button {
+  background: #333;
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.upload-modal-header button:hover {
+  background: #ff4444;
+  transform: scale(1.1);
+}
+
+.upload-modal-content {
+  padding: 1.5rem;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.form-group select,
+.form-group input[type="file"] {
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.form-group select:focus,
+.form-group input[type="file"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.file-info {
+  color: #00ff88;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.upload-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  transition: width 0.3s ease;
+}
+
+.upload-progress span {
+  color: #ffffff;
+  font-size: 0.9rem;
+  min-width: 40px;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.upload-submit-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.upload-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Documents Grid */
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.no-documents {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+.no-documents h3 {
+  color: #cccccc;
+  margin: 1rem 0 0.5rem 0;
+}
+
+/* Document Card */
+.document-card {
+  background: #2a2a2a;
+  border: 2px solid #333;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.document-card:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.document-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.document-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.document-info {
+  flex: 1;
+}
+
+.document-info h4 {
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.document-info p {
+  color: #cccccc;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.upload-date {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.verification-status {
+  display: flex;
+  align-items: center;
+}
+
+.verification-status .verified {
+  color: #28a745;
+  font-size: 1.25rem;
+}
+
+.verification-status .unverified {
+  color: #dc3545;
+  font-size: 1.25rem;
+}
+
+.verification-status .verifying {
+  color: #ffc107;
+  font-size: 0.8rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Document Actions */
+.document-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.action-btn.view {
+  background: #007bff;
+  color: #ffffff;
+}
+
+.action-btn.qr {
+  background: #6f42c1;
+  color: #ffffff;
+}
+
+.action-btn.download {
+  background: #28a745;
+  color: #ffffff;
+}
+
+.action-btn.verify {
+  background: #ffc107;
+  color: #000000;
+}
+
+.action-btn.delete {
+  background: #dc3545;
+  color: #ffffff;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* QR Modal Styles (reusing from QRCodeIdentity.css) */
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.qr-modal {
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  animation: modalSlideIn 0.3s ease;
+}
+
+.qr-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+}
+
+.qr-modal-header h3 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.qr-modal-header button {
+  background: #333;
+  border: none;
+  color: #ffffff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.qr-modal-header button:hover {
+  background: #ff4444;
+  transform: scale(1.1);
+}
+
+.qr-modal-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.document-qr-info {
+  margin-bottom: 1.5rem;
+}
+
+.document-qr-info h4 {
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.document-qr-info p {
+  color: #cccccc;
+  margin: 0;
+}
+
+.qr-code-container {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.qr-instructions {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .document-actions {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    min-width: auto;
+  }
+  
+  .upload-modal {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .upload-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .document-manager-header h2 {
+    font-size: 2rem;
+  }
+  
+  .document-card {
+    padding: 1rem;
+  }
+  
+  .document-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .verification-status {
+    margin-top: 0.5rem;
+  }
+} 

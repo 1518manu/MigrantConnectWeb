@@ -177,6 +177,28 @@
   box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
 }
 
+/* QR Identity Button - matches hero button primary styling */
+.qr-identity-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.qr-identity-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
+}
+
 .hero-visual {
   display: flex;
   justify-content: center;
@@ -197,6 +219,61 @@
 .illustration-placeholder {
   color: #ffffff;
   font-size: 4rem;
+}
+
+/* Digital Identity Section Styles */
+.digital-identity-section {
+  padding: 3rem 0;
+  background: #1a1a1a;
+}
+
+.identity-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.identity-feature-card {
+  background: #2a2a2a;
+  border: 2px solid #333;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.identity-feature-card:hover {
+  border-color: #007bff;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.identity-feature-card h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.identity-feature-card p {
+  color: #cccccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 /* Documents Section Styles */
@@ -501,6 +578,10 @@
     max-width: 300px;
   }
   
+  .identity-features {
+    grid-template-columns: 1fr;
+  }
+  
   .quick-links-grid,
   .support-options {
     grid-template-columns: 1fr;
@@ -527,7 +608,62 @@
   
   .documents-btn,
   .category-card,
-  .support-card {
+  .support-card,
+  .identity-feature-card {
     padding: 1.5rem;
+  }
+}
+
+/* Feature Actions Styles */
+.identity-feature-card .feature-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.feature-btn.primary {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+}
+
+.feature-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+}
+
+.feature-btn.secondary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.feature-btn.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+@media (max-width: 768px) {
+  .feature-actions {
+    flex-direction: column;
+  }
+  
+  .feature-btn {
+    width: 100%;
+    justify-content: center;
   }
 } 

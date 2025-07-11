@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FaSearch, FaCog, FaUser, FaSun, FaMoon, FaQrcode, FaFileAlt, FaGraduationCap, FaHeartbeat, FaHandHoldingHeart, FaBullhorn, FaHeadset, FaArrowRight } from 'react-icons/fa';
+import { FaSearch, FaCog, FaUser, FaSun, FaMoon, FaQrcode, FaFileAlt, FaGraduationCap, FaHeartbeat, FaHandHoldingHeart, FaBullhorn, FaHeadset, FaArrowRight, FaIdCard, FaShieldAlt, FaCamera, FaHistory } from 'react-icons/fa';
+import QRCodeIdentity from './QRCodeIdentity';
+import DocumentManager from './DocumentManager';
+import AadhaarIntegration from './AadhaarIntegration';
+import { QRVerification, VerificationHistory } from './QRVerificationSystem';
 import './DashboardComponents.css';
 
 // Navbar Component
@@ -58,10 +62,7 @@ export function DashboardHero() {
           <h1 className="hero-title">Welcome to MigrantConnect</h1>
           <p className="hero-subtitle">Your gateway to essential services and support</p>
           <div className="hero-buttons">
-            <button className="hero-btn primary">
-              <FaQrcode />
-              <span>Show QR Identity</span>
-            </button>
+            <QRCodeIdentity />
             <button className="hero-btn secondary">
               <FaFileAlt />
               <span>View Documents</span>
@@ -76,6 +77,82 @@ export function DashboardHero() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+// Digital Identity Section Component
+export function DigitalIdentitySection() {
+  const [showQRVerification, setShowQRVerification] = useState(false);
+  const [showVerificationHistory, setShowVerificationHistory] = useState(false);
+  
+  // Get user ID from localStorage or context
+  const userId = localStorage.getItem('userId') || 'default-user-id';
+
+  return (
+    <section className="digital-identity-section">
+      <div className="section-header">
+        <h2>Digital Identity & Documents</h2>
+        <p>Manage your identity documents and Aadhaar integration</p>
+      </div>
+      
+      <div className="identity-features">
+        <div className="identity-feature-card">
+          <div className="feature-icon">
+            <FaIdCard />
+          </div>
+          <h3>Aadhaar Integration</h3>
+          <p>Link your Aadhaar for seamless government service access</p>
+          <AadhaarIntegration />
+        </div>
+        
+        <div className="identity-feature-card">
+          <div className="feature-icon">
+            <FaFileAlt />
+          </div>
+          <h3>Document Management</h3>
+          <p>Upload, verify, and manage all your identity documents</p>
+          <DocumentManager />
+        </div>
+
+        <div className="identity-feature-card">
+          <div className="feature-icon">
+            <FaCamera />
+          </div>
+          <h3>QR Code Verification</h3>
+          <p>Scan authority QR codes to verify your document eligibility</p>
+          <div className="feature-actions">
+            <button 
+              className="feature-btn primary"
+              onClick={() => setShowQRVerification(true)}
+            >
+              <FaCamera />
+              <span>Scan QR Code</span>
+            </button>
+            <button 
+              className="feature-btn secondary"
+              onClick={() => setShowVerificationHistory(true)}
+            >
+              <FaHistory />
+              <span>View History</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {showQRVerification && (
+        <QRVerification 
+          userId={userId}
+          onClose={() => setShowQRVerification(false)}
+        />
+      )}
+
+      {showVerificationHistory && (
+        <VerificationHistory 
+          userId={userId}
+          onClose={() => setShowVerificationHistory(false)}
+        />
+      )}
     </section>
   );
 }

@@ -4,6 +4,7 @@ import { getToken } from '../utils/auth';
 import { 
   Navbar, 
   DashboardHero, 
+  DigitalIdentitySection,
   IssuedDocumentsButton, 
   DashboardQuickLinks, 
   DashboardAnnouncements, 
@@ -28,6 +29,9 @@ function Dashboard() {
       <Navbar />
       <main className="main-content">
         <DashboardHero />
+        <FadeInSection>
+          <DigitalIdentitySection />
+        </FadeInSection>
         <FadeInSection>
           <IssuedDocumentsButton />
         </FadeInSection>
