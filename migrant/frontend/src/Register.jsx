@@ -32,10 +32,38 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
+
+  // Password strength checker
+  function checkPasswordStrength(pw) {
+    let strength = '';
+    let error = '';
+    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    if (!pw) {
+      strength = '';
+      error = '';
+    } else if (pw.length < 8) {
+      strength = 'weak';
+      error = 'Password must be at least 8 characters.';
+    } else if (!strongRegex.test(pw)) {
+      strength = 'weak';
+      error = 'Password must include uppercase, lowercase, number, and special character.';
+    } else {
+      strength = 'strong';
+      error = '';
+    }
+    setPasswordStrength(strength);
+    setPasswordError(error);
+    return strength;
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.name === 'password') {
+      checkPasswordStrength(e.target.value);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -43,6 +71,10 @@ export default function Register() {
     setMessage('');
     if (form.password !== form.confirmPassword) {
       setMessage('Passwords do not match.');
+      return;
+    }
+    if (checkPasswordStrength(form.password) !== 'strong') {
+      setMessage('Please enter a stronger password.');
       return;
     }
     try {
@@ -104,6 +136,7 @@ export default function Register() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+            {passwordError && <div style={{ color: 'red', fontSize: '0.95rem', marginTop: '0.25rem' }}>{passwordError}</div>}
           </label>
           <label className="password-label">
             Confirm Password:

@@ -97,12 +97,6 @@ export default function Login() {
               </span>
             </div>
           </label>
-          <label>
-            Language:
-            <select name="language" value={form.language} onChange={handleChange}>
-              {languages.map(lang => <option key={lang.value} value={lang.value}>{lang.label}</option>)}
-            </select>
-          </label>
           <button type="submit">Login</button>
         </form>
         {message && <p>{message}</p>}
