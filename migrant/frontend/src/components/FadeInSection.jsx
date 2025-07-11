@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './FadeInSection.css';
 
 export default function FadeInSection({ children }) {

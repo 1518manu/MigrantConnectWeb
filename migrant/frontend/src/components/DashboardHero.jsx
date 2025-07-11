@@ -1,5 +1,5 @@
+import React from 'react';
 import './DashboardHero.css';
-import QRButton from './QRButton';
 
 export default function DashboardHero() {
   return (
@@ -11,7 +11,6 @@ export default function DashboardHero() {
         <p className="hero-description">
           MigrantConnect helps you access essential documents and services, wherever you are.
         </p>
-        <QRButton />
       </div>
     </section>
   );

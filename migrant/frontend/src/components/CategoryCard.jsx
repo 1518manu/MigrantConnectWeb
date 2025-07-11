@@ -1,8 +1,10 @@
-import './CategoryCard.css';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './CategoryCard.css';
 
 export default function CategoryCard({ name, icon, path }) {
   const navigate = useNavigate();
+  
   return (
     <div
       className="category-card"
@@ -11,8 +13,8 @@ export default function CategoryCard({ name, icon, path }) {
       role="button"
       aria-label={name}
     >
-      <span className="material-icons category-icon">{icon}</span>
-      <span className="category-name">{name}</span>
+      <span className="material-icons category-card-icon">{icon}</span>
+      <span>{name}</span>
     </div>
   );
 } 

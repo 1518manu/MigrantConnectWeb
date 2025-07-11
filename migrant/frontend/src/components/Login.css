@@ -1,30 +1,41 @@
-.login-container {
+.auth-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: #18181b;
+  padding: 2rem;
 }
 
-.login-box {
+.auth-form {
   background: #232326;
   border: 1px solid #27272a;
   border-radius: 1rem;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
   padding: 2rem 2.5rem;
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
+  color: #f4f4f5;
 }
 
-.login-title {
-  font-size: 1.5rem;
+.auth-form h2 {
+  font-size: 1.8rem;
   font-weight: 700;
   color: #f4f4f5;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.login-input {
+.auth-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #d4d4d8;
+}
+
+.auth-form input,
+.auth-form select {
   width: 100%;
   padding: 0.7rem 1rem;
   border: 1px solid #27272a;
@@ -32,10 +43,43 @@
   background: #18181b;
   color: #f4f4f5;
   font-size: 1rem;
-  margin-bottom: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-.login-btn {
+.auth-form input:focus,
+.auth-form select:focus {
+  outline: none;
+  border-color: #3f3f46;
+}
+
+.password-label {
+  position: relative;
+}
+
+.password-input-wrapper {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.password-input-wrapper input {
+  padding-right: 3rem;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #a1a1aa;
+  font-size: 1.1rem;
+}
+
+.eye-icon:hover {
+  color: #f4f4f5;
+}
+
+.auth-form button {
   width: 100%;
   padding: 0.8rem 0;
   background: #27272a;
@@ -46,9 +90,73 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  margin-top: 1rem;
 }
 
-.login-btn:hover {
+.auth-form button:hover:not(:disabled) {
   background: #3f3f46;
   color: #fff;
+}
+
+.auth-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.auth-form p {
+  margin-top: 1rem;
+  text-align: center;
+  color: #d4d4d8;
+}
+
+.auth-form a {
+  color: #3f3f46;
+  text-decoration: underline;
+}
+
+.auth-form a:hover {
+  color: #f4f4f5;
+}
+
+.auth-bg-letters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.auth-bg-letters span {
+  position: absolute;
+  color: #27272a;
+  opacity: 0.1;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
 } 

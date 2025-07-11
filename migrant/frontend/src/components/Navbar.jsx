@@ -1,14 +1,23 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { removeToken } from '../utils/auth';
 import './Navbar.css';
-import { ThemeToggle } from './ThemeToggle';
-import LanguageSelector from './LanguageSelector';
 
 export default function Navbar({ onSearch }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeToken();
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
       {/* Left: Logo */}
       <div className="navbar-logo">
-        <img src="/src/assets/react.svg" alt="MigrantConnect Logo" />
+        MigrantConnect
       </div>
+      
       {/* Center: Search */}
       <div className="navbar-search">
         <input
@@ -17,15 +26,17 @@ export default function Navbar({ onSearch }) {
           onChange={e => onSearch && onSearch(e.target.value)}
         />
       </div>
-      {/* Right: Settings, Profile, Theme, Language */}
+      
+      {/* Right: Actions */}
       <div className="navbar-actions">
-        <LanguageSelector />
-        <ThemeToggle />
-        <button className="navbar-button" title="Settings">
+        <button className="navbar-icon-btn" title="Settings">
           <span className="material-icons">settings</span>
         </button>
-        <button className="navbar-button" title="Profile">
+        <button className="navbar-icon-btn" title="Profile">
           <span className="material-icons">account_circle</span>
+        </button>
+        <button className="navbar-icon-btn" title="Logout" onClick={handleLogout}>
+          <span className="material-icons">logout</span>
         </button>
       </div>
     </nav>
