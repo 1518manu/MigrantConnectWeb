@@ -1,27 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(() =>
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
-
-  useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [dark]);
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <button
-      onClick={() => setDark(d => !d)}
+      onClick={toggleTheme}
       className="theme-toggle"
-      title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       aria-label="Toggle theme"
     >
       <span className="material-icons">
-        {dark ? 'dark_mode' : 'light_mode'}
+        {isDark ? 'dark_mode' : 'light_mode'}
       </span>
     </button>
   );

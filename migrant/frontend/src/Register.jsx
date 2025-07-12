@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { hashPassword, checkPasswordStrength } from './utils/password';
-import PasswordStrengthIndicator from './components/PasswordStrengthIndicator';
 
 const languages = [
   { value: 'Hindi', label: 'हिंदी' },
@@ -75,9 +73,9 @@ export default function Register() {
       return false;
     }
 
-    // Check password strength using shared utility
-    const strength = checkPasswordStrength(form.password);
-    if (strength.score < 3) {
+    // Check password strength using local checker
+    const strength = checkPasswordStrengthLocal(form.password);
+    if (strength !== 'strong') {
       setMessage('Please choose a stronger password. Your password should be at least moderate strength.');
       return false;
     }
@@ -117,38 +115,32 @@ export default function Register() {
     }
 
     try {
-      // Hash the password before sending
-      const hashedPassword = hashPassword(form.password);
-      
-      // Prepare registration data
+      // Prepare registration data (send plain password, backend will hash it)
       const registrationData = {
         name: form.name.trim(),
         identifier: form.identifier.trim(),
-        password: hashedPassword, // Send hashed password
+        password: form.password, // Send plain password, backend will hash
         language: form.language,
         registrationDate: new Date().toISOString(),
       };
 
-      // For demo purposes, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Send to backend API
+      const res = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registrationData),
+      });
       
-      // Store user data locally (in real app, this would go to backend)
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const existingUser = users.find(user => user.identifier === form.identifier);
+      const data = await res.json();
       
-      if (existingUser) {
+      if (res.ok) {
+        setMessage('Registration successful! Redirecting to login...');
+        setTimeout(() => navigate('/login'), 2000);
+      } else if (res.status === 409) {
         setMessage('User already exists. Please login.');
-        setIsLoading(false);
-        return;
+      } else {
+        setMessage(data.error || 'Registration failed.');
       }
-
-      // Add new user
-      users.push(registrationData);
-      localStorage.setItem('users', JSON.stringify(users));
-
-      setMessage('Registration successful! Redirecting to login...');
-      setTimeout(() => navigate('/login'), 2000);
-      
     } catch (err) {
       setMessage('Registration failed. Please try again.');
     } finally {
@@ -213,7 +205,6 @@ export default function Register() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            <PasswordStrengthIndicator password={form.password} />
             {passwordError && <div style={{ color: 'red', fontSize: '0.95rem', marginTop: '0.25rem' }}>{passwordError}</div>}
           </label>
           
