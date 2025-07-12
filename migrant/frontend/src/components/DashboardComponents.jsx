@@ -4,17 +4,13 @@ import QRCodeIdentity from './QRCodeIdentity';
 import DocumentManager from './DocumentManager';
 import AadhaarIntegration from './AadhaarIntegration';
 import { QRVerification, VerificationHistory } from './QRVerificationSystem';
+import { useTheme } from '../contexts/ThemeContext';
 import './DashboardComponents.css';
 
 // Navbar Component
 export function Navbar() {
-  const [isDark, setIsDark] = useState(true);
+  const { isDark, toggleTheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.body.classList.toggle('light-theme');
-  };
 
   return (
     <nav className="navbar">
